@@ -153,7 +153,7 @@ const main = async () => {
 
   console.log("")
   console.log("")
-  console.log("\x1b[92mScript completed")
+  console.log("\x1b[37;42mScript completed\x1b[0m")
   console.log(
     `\x1b[32mPull request to upgrade ${packageName} to version ${packageVersion} opened successfully in "${repo}" repo.`
   )
@@ -162,7 +162,7 @@ const main = async () => {
 }
 
 main().catch((error) => {
-  console.log("\x1b[91mScript failed")
+  console.log("\x1b[37;41mScript failed\x1b[0m")
   console.log(`\x1b[31m${error}`)
   return process.exit(1)
 })
