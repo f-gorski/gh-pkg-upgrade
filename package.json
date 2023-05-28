@@ -1,0 +1,24 @@
+{
+  "name": "gh-lib-upgrade",
+  "version": "1.0.0",
+  "description": "A JS script to remotely upgrade specified Github project dependencies",
+  "main": "gh-pkg-upgrade.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f-gorski/gh-lib-upgrade.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/f-gorski/gh-lib-upgrade/issues"
+  },
+  "homepage": "https://github.com/f-gorski/gh-lib-upgrade#readme",
+  "dependencies": {
+    "cli-progress": "^3.12.0",
+    "commander": "^10.0.1",
+    "node-fetch": "^2.6.11"
+  }
+}
