@@ -76,7 +76,7 @@ const main = async () => {
   )
 
   const packageJson = base64ToJSON(packageJsonValue.content)
-  const sha = packageJsonValue.sha
+  const packageJsonHash = packageJsonValue.sha
 
   const dependencyType = getDependencyType(packageJson, packageName)
   const updatedPackageJson = updatePackageJson(
@@ -118,7 +118,7 @@ const main = async () => {
     encodedPackageJson,
     packageName,
     packageVersion,
-    sha,
+    packageJsonHash,
     branchName
   )
 
