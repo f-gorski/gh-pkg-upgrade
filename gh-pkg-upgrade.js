@@ -7,6 +7,10 @@ const createBranch = require("./api-calls/createBranch")
 const createCommit = require("./api-calls/createCommit")
 const createPullRequest = require("./api-calls/createPullRequest")
 
+const { base64ToJSON, JSONToBase64 } = require("./utils/base64")
+const getDependencyType = require("./utils/get_dependency_type")
+const updatePackageJson = require("./utils/update_package_json")
+
 const main = async () => {
   const program = new Command()
 
@@ -71,34 +75,18 @@ const main = async () => {
     latestCommitHash
   )
 
-  //todo- separate function
-  let buffer = new Buffer.from(packageJsonValue.content, "base64")
-  let jsonString = buffer.toString("ascii")
-  const packageJson = JSON.parse(jsonString)
+  const packageJson = base64ToJSON(packageJsonValue.content)
   const sha = packageJsonValue.sha
 
-  let dependencyType = ""
+  const dependencyType = getDependencyType(packageJson, packageName)
+  const updatedPackageJson = updatePackageJson(
+    packageJson,
+    packageName,
+    packageVersion,
+    dependencyType
+  )
 
-  if (packageJson?.dependencies?.hasOwnProperty(packageName)) {
-    dependencyType = "dependencies"
-  } else if (packageJson?.devDependencies?.hasOwnProperty(packageName)) {
-    dependencyType = "devDependencies"
-  } else {
-    throw new Error(
-      `Package with name ${packageName} not found in dependencies nor in devDependencies`
-    )
-  }
-
-  const updatedPackageJson = {
-    ...packageJson,
-    [dependencyType]: {
-      ...packageJson.dependencies,
-      [packageName]: `^${packageVersion}`,
-    },
-  }
-
-  buffer = new Buffer.from(JSON.stringify(updatedPackageJson, null, 2))
-  const encodedPackageJson = buffer.toString("base64")
+  const encodedPackageJson = JSONToBase64(updatedPackageJson)
 
   progressBar.update(40)
   console.log("")
