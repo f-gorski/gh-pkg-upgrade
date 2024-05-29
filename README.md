@@ -4,6 +4,8 @@
 
 A Node.js script that allows you to remotely upgrade specified dependencies in a GitHub project to a specified version. This tool is useful for maintaining project dependencies across multiple repositories and can be integrated into Continuous Integration (CI) environments for automated dependency management.
 
+<img src="./example.png" alt="example script usage" width="600"/>
+
 ## Features
 
 - Upgrade a specified dependency to a desired version in a GitHub repository.
